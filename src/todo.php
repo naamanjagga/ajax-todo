@@ -110,42 +110,43 @@ session_start();
         for (var i = 0; i < length; i++) {
 		    if (i == x) {
                 var checkbox = document.getElementById('check' + [ i ]);
+            
                 if(checkbox.checked){
                     $.ajax({
                      url: 'post.php',
                      type: 'post',
                      datatype: 'json',
                      data: {
-                         action: 'check',
+                         action: 'check2',
                          complete: js_array[i],
                          check: i
                      },
                      success:function(data){
                         var js_array1 = JSON.parse(data);
-                        var html = '<ul>';
-	                    for (var j = 0; j < js_array.length; j++) {
-                            if(x == j){
-                                js_array.splice(j,1);
-                            
-                                continue;
-                            } else {
-		                        html +=
-			                        '<li><input type ="checkbox" id="check' +
-			                        [ j ] +
-			                        '" onchange="change(' +
-			                        j +
-			                         ')">' +
-			                        js_array[j] +
-			                        ' <button id="Edit" onclick="Edit(' +
-			                        j +
-			                        ')">Edit</button> <button id="Delete" onclick="Delete(' +
-			                        j +
-			                        ')">Delete</button><br> ';
+                        // var html = '<ul>';
+                        // var n = js_array.length;
+	                    // for (var j = 0; j < n; j++) {
+                        //     if(x == j){
+                        //         js_array.splice(j,1);
+                        //         continue;
+                        //     } else {
+		                //         html +=
+			            //             '<li><input type ="checkbox" id="check' +
+			            //             [ j ] +
+			            //             '" onchange="change(' +
+			            //             j +
+			            //              ')">' +
+			            //             js_array[j] +
+			            //             ' <button id="Edit" onclick="Edit(' +
+			            //             j +
+			            //             ')">Edit</button> <button id="Delete" onclick="Delete(' +
+			            //             j +
+			            //             ')">Delete</button><br> ';
 	
-	                            html += '</li></ul>';
-	                            $('#todo').html(html);
-                            }
-                        }
+	                    //         html += '</li></ul>';
+	                    //         $('#todo').html(html);
+                        //     }
+                        // }
                         var html = '<ul>';
 	                       for (var i = 0; i < js_array1.length; i++) {
 		                      html +=
@@ -166,7 +167,26 @@ session_start();
                         
                    }
                 })
+               
             }
+            if(checkbox.checked){
+                    $.ajax({
+                     url: 'change.php',
+                     type: 'post',
+                     datatype: 'json',
+                     data: {
+                         action: 'check1',
+                         complete: js_array[i],
+                         check: i
+                     },
+                     success:function(data){
+                         console.log(data)
+                        var js_array = JSON.parse(data);
+                        console.log(js_array)
+                        display(js_array)
+                     }
+                    })
+                }
         }
       }
     }

@@ -1,5 +1,6 @@
 <?php
 session_start();
+//session_destroy();
 if(!isset( $_SESSION['todo'])){
     $_SESSION['todo'] = array();
 }
@@ -22,8 +23,7 @@ if(isset($_POST['action']) && $_POST['action']=='delete'){
     array_splice($_SESSION['todo'],$_POST['delete'],1);
        echo json_encode($_SESSION['todo']);
 }
-if(isset($_POST['action']) && $_POST['action']=='check'){
-    array_splice($_SESSION['todo'],$_POST['delete'],1);
+if(isset($_POST['action']) && $_POST['action']=='check2'){
     array_push($_SESSION['complete'] ,$_POST['complete']);
        echo json_encode($_SESSION['complete']);
 }
